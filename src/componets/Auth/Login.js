@@ -1,41 +1,46 @@
 import React, { useState } from "react";
+import { login } from "../../services/api";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    // Send data to backend (e.g., axios.post)
+    try {
+      const response = await login(formData);
+      localStorage.setItem("token", response.data.token);
+      setMessage("Login successful!");
+    } catch (err) {
+      setMessage(err.response?.data?.error || "An error occurred");
+    }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <form className="w-96 bg-white shadow-lg rounded p-6 space-y-4" onSubmit={handleSubmit}>
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          className="w-full px-3 py-2 border rounded"
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          className="w-full px-3 py-2 border rounded"
-          onChange={handleChange}
-          required
-        />
-        <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded">Login</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className="p-4 space-y-4">
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        onChange={handleChange}
+        className="border p-2 w-full"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        onChange={handleChange}
+        className="border p-2 w-full"
+        required
+      />
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2">Login</button>
+      {message && <p>{message}</p>}
+    </form>
   );
 };
 

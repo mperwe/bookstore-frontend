@@ -1,13 +1,17 @@
-import React from "react";
-import BookList from "../Books/BookList";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Welcome to the Bookstore</h1>
-      <BookList />
-    </div>
-  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  return <div>Welcome to the Dashboard!</div>;
 };
 
 export default Dashboard;
