@@ -22,9 +22,12 @@ function Navbar() {
   return (
     <nav className="bg-gray-800 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Bookstore</h1>
+        {/* Logo and Store Name linked to '/books' */}
+        <Link to="/books" className="text-2xl font-bold hover:text-yellow-400">
+          |-Book Store-|
+        </Link>
 
-        {/* Search Bar in the center */}
+        {/* Search Bar */}
         <form onSubmit={handleSearch} className="flex items-center flex-grow justify-center mx-4">
           <input
             type="text"
@@ -41,15 +44,24 @@ function Navbar() {
           </button>
         </form>
 
-        <ul className="flex space-x-4">
-          <li><Link to="/" className="hover:text-yellow-400">Home</Link></li>
-          <li><Link to="/books" className="hover:text-yellow-400">Books</Link></li>
-          <li><Link to="/cart" className="hover:text-yellow-400">Cart</Link></li>
-          <li><Link to="/profile" className="hover:text-yellow-400">Profile</Link></li>
-          <li><Link to="/signin" className="hover:text-yellow-400">Sign In</Link></li>
-          <li><Link to="/signup" className="hover:text-yellow-400">Sign Up</Link></li>
-        </ul>
+        {/* Register and Login Buttons */}
+        <div className="flex space-x-4">
+          <Link
+            to="/signup"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Register
+          </Link>
+          <Link
+            to="/signin"
+            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          >
+            Login
+          </Link>
+        </div>
       </div>
+
+      {/* Search Results */}
       {searchResult && (
         <div className="bg-gray-700 p-4 mt-2">
           {searchResult.length > 0 ? (
