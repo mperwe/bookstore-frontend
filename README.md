@@ -68,3 +68,42 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+Structure
+bookstore-frontend/
+├── public/
+│   ├── index.html
+│   └── favicon.ico
+├── src/
+│   ├── assets/
+│   │   └── images/          # Store images like logo, banners, etc.
+│   ├── components/
+│   │   ├── Navbar.jsx       # Navigation bar with role-based links
+│   │   ├── Footer.jsx       # Footer section
+│   │   ├── BookCard.jsx     # Individual book card
+│   │   ├── BookGrid.jsx     # Grid of books
+│   │   ├── AdminBookForm.jsx# Admin form for adding/editing books
+│   │   ├── AdminBookTable.jsx # Admin table for listing and managing books
+│   │   ├── SignupForm.jsx   # Signup form component
+│   │   ├── SigninForm.jsx   # Sign-in form component
+│   ├── pages/
+│   │   ├── Home.jsx         # Homepage
+│   │   ├── Books.jsx        # Books listing page
+│   │   ├── Cart.jsx         # Shopping cart page
+│   │   ├── Profile.jsx      # User profile page
+│   │   ├── AdminPanel.jsx   # Admin panel for managing books
+│   │   ├── Signup.jsx       # Signup page
+│   │   ├── Signin.jsx       # Sign-in page
+│   ├── services/
+│   │   ├── api.js           # API functions (e.g., sign-in, sign-up, fetch books)
+│   ├── styles/
+│   │   └── index.css        # Global styles
+│   ├── App.js               # Main App component
+│   ├── index.js             # React entry point
+│   ├── tailwind.config.js   # Tailwind CSS configuration
+│   └── utils/
+│       ├── auth.js          # Authentication utilities (e.g., token handling)
+│       └── roles.js         # Role-based access handling utilities
+└── package.json

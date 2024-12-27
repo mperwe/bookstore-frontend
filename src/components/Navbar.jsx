@@ -4,23 +4,23 @@ import axios from "axios";
 
 function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResult, setSearchResult] = useState(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // Reset error message
 
     try {
-      const response = await axios.get(`/api/books/add/search?query=${searchQuery}`);
+      const response = await axios.get(`/api/books/search?query=${searchQuery}`);
       setSearchResult(response.data);
-      console.log("Search Result:", response.data);
+      if (response.data.length === 0) {
+        setErrorMessage("No books found.");
+      }
     } catch (error) {
       console.error("Error searching books:", error);
+      setErrorMessage("Failed to fetch books. Please try again.");
     }
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
   };
 
   return (
@@ -28,12 +28,10 @@ function Navbar() {
       {/* Navbar */}
       <nav className="bg-gray-800 text-white p-4">
         <div className="container mx-auto flex justify-between items-center">
-          {/* Logo and Store Name */}
           <Link to="/books" className="text-2xl font-bold hover:text-yellow-400">
             |-Book Store-|
           </Link>
 
-          {/* Search Bar */}
           <form onSubmit={handleSearch} className="flex items-center flex-grow justify-center mx-4">
             <input
               type="text"
@@ -50,7 +48,6 @@ function Navbar() {
             </button>
           </form>
 
-          {/* Register and Login Buttons */}
           <div className="flex space-x-4">
             <Link
               to="/signup"
@@ -66,62 +63,20 @@ function Navbar() {
             </Link>
           </div>
         </div>
-        {searchResult && (
-          <div className="bg-gray-700 p-4 mt-2">
-            {searchResult.length > 0 ? (
-              <ul>
-                {searchResult.map((book) => (
-                  <li key={book.id} className="text-white">
-                    {book.title} by {book.author}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-white">No books found.</p>
-            )}
-          </div>
-        )}
       </nav>
 
-      {/* Category Menu Bar */}
-      <div className="bg-gray-900 text-white p-2">
-        <div className="container mx-auto flex items-center">
-          <div className="relative">
-            <button
-              onClick={toggleDropdown}
-              className="bg-gray-700 text-sm px-3 py-1 rounded hover:bg-gray-600"
-            >
-              Categories
-            </button>
-            {isDropdownOpen && (
-              <div className="absolute left-0 mt-2 bg-gray-800 bg-opacity-75 rounded shadow-lg w-40">
-                <ul className="text-sm text-white">
-                  <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
-                    <Link to="/signin">Science Fiction</Link>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
-                    <Link to="/books">Dystopian</Link>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
-                    <Link to="/books">Action & Adventure</Link>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
-                    <Link to="/books">Detective & Mystery</Link>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
-                    <Link to="/books">Thriller & Suspense</Link>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
-                    <Link to="/books">Romance</Link>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-gray-700 cursor-pointer">
-                    <Link to="/books">Horror</Link>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
+      {/* Search Results */}
+      <div className="bg-gray-700 p-4 mt-2">
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+        {searchResult.length > 0 && (
+          <ul>
+            {searchResult.map((book) => (
+              <li key={book.id} className="text-white">
+                {book.title} by {book.author}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </>
   );
