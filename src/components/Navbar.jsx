@@ -1,7 +1,8 @@
+// components/Navbar.jsx
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../utils/auth';
-
+import { useAuth } from '../utils/auth'; // Import the useAuth hook
 
 const Navbar = () => {
   const { userRole, setUserRole } = useAuth();
@@ -26,7 +27,7 @@ const Navbar = () => {
             </Link>
           )}
           {userRole === 'admin' && (
-            <Link to="/admin-panel" className="hover:text-gray-400">
+            <Link to="/admin" className="hover:text-gray-400">
               Admin Panel
             </Link>
           )}
