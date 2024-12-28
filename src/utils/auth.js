@@ -12,12 +12,14 @@ export const AuthProvider = ({ children }) => {
   const login = (role) => {
     setUserRole(role); // 'user' or 'admin'
     setIsAuthenticated(true);
+    localStorage.setItem('userRole', role); // Store role in localStorage
   };
 
   // Mock logout function
   const logout = () => {
     setUserRole('user');
     setIsAuthenticated(false);
+    localStorage.removeItem('userRole'); // Remove role from localStorage
   };
 
   // Mock persistent login check

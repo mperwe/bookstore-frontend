@@ -1,46 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const AdminBookForm = ({ onSubmit, initialData = {} }) => {
-  const [title, setTitle] = useState(initialData.title || '');
-  const [author, setAuthor] = useState(initialData.author || '');
-  const [price, setPrice] = useState(initialData.price || '');
-  const [description, setDescription] = useState(initialData.description || '');
+const AdminBookForm = ({ initialData, onSubmit }) => {
+  const [book, setBook] = useState(initialData || { title: '', author: '', price: '' });
+
+  useEffect(() => {
+    if (initialData) {
+      setBook(initialData);
+    }
+  }, [initialData]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setBook((prevBook) => ({ ...prevBook, [name]: value }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ title, author, price, description });
+    onSubmit(book);
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <input
         type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        name="title"
+        value={book.title}
+        onChange={handleChange}
         placeholder="Book Title"
-        className="input"
+        className="w-full p-2 border rounded"
       />
       <input
         type="text"
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
+        name="author"
+        value={book.author}
+        onChange={handleChange}
         placeholder="Author"
-        className="input"
+        className="w-full p-2 border rounded"
       />
       <input
         type="number"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
+        name="price"
+        value={book.price}
+        onChange={handleChange}
         placeholder="Price"
-        className="input"
+        className="w-full p-2 border rounded"
       />
-      <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Description"
-        className="textarea"
-      />
-      <button type="submit" className="btn-primary">Submit</button>
+      <button type="submit" className="bg-blue-500 text-white p-2 rounded">Submit</button>
     </form>
   );
 };
