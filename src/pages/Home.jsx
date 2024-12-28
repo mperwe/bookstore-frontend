@@ -6,7 +6,7 @@ function Home() {
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white py-16 rounded-lg shadow-md">
         <h1 className="text-5xl font-extrabold text-center drop-shadow-md">
-          e-Bookstore
+          e-Bookstorez
         </h1>
         <p className="text-center mt-4 text-lg font-medium">
           Explore our vast collection and find your next favorite book.
