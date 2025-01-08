@@ -144,9 +144,9 @@ function Home() {
   return (
     <div className="container mx-auto mt-10 px-4">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-white py-16 rounded-lg shadow-lg">
-        <h1 className="text-5xl font-extrabold text-center drop-shadow-md">
-          e-Bookstorez
+      <div className="bg-gradient-to-r from-black via-yellow-600 to-yellow-300 text-white py-16 rounded-lg shadow-lg">
+  <h1 className="text-5xl font-extrabold text-center drop-shadow-md">
+    e-Bookstorez
         </h1>
         <p className="text-center mt-4 text-lg font-medium">
           Explore our vast collection and find your next favorite book.
